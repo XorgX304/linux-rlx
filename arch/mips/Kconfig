@@ -359,6 +359,24 @@ config MACH_JAZZ
 	 Members include the Acer PICA, MIPS Magnum 4000, MIPS Millennium and
 	 Olivetti M700-10 workstations.
 
+config MACH_RTL819X
+	bool "RTL819X from realtek"
+	select CPU_RLX4181
+	select IRQ_CPU
+	select SYS_HAS_EARLY_PRINTK
+	select CPU_BIG_ENDIAN
+	select RTL_819X
+	select RTL_8196C_GW
+	select RTL_8196C
+	select REALTEK_CPU
+	select SYS_SUPPORTS_BIG_ENDIAN
+	select SYS_HAS_CPU_R3000
+	select SYS_SUPPORTS_32BIT_KERNEL
+	select SYS_SUPPORTS_100HZ
+	select DMA_NONCOHERENT
+	select SERIAL_8250
+	select SERIAL_8250_CONSOLE
+
 config MACH_INGENIC
 	bool "Ingenic SoC based machines"
 	select SYS_SUPPORTS_32BIT_KERNEL
@@ -1017,6 +1035,7 @@ source "arch/mips/bcm63xx/Kconfig"
 source "arch/mips/bmips/Kconfig"
 source "arch/mips/generic/Kconfig"
 source "arch/mips/jazz/Kconfig"
+source "arch/mips/rtl819x/Kconfig"
 source "arch/mips/jz4740/Kconfig"
 source "arch/mips/lantiq/Kconfig"
 source "arch/mips/lasat/Kconfig"
@@ -1558,6 +1577,17 @@ config CPU_R3000
 	  of the supported machines have an R4000 (or similar) CPU, R4x00
 	  might be a safe bet.  If the resulting kernel does not work,
 	  try to recompile with R3000.
+
+config CPU_RLX4181
+	bool "RLX4181"
+	depends on SYS_HAS_CPU_R3000
+	select CPU_HAS_WB
+	select CPU_SUPPORTS_32BIT_KERNEL
+	select CPU_SUPPORTS_HIGHMEM
+	help
+	  Basically, from my undertanding that's r3k + a bunch of strange
+	  instructions like mflx0 for interrupts. 
+
 
 config CPU_TX39XX
 	bool "R39XX"
