@@ -1526,6 +1526,7 @@ static inline void cpu_probe_legacy(struct cpuinfo_mips *c, unsigned int cpu)
 		// c->isa_level	= MIPS_CPU_ISA_LEXRA;
 		// c->fpu_id       = FPIR_IMP_NONE;
 		set_isa(c, MIPS_CPU_ISA_LEXRA);
+		set_cpu_asid_mask(c, 0xfc0);
 		c->options      = MIPS_CPU_TLB | MIPS_CPU_3K_CACHE | MIPS_CPU_NOFPUEX;
 		c->tlbsize      = 32;
 		c->icache.ways = 2;

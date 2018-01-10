@@ -175,7 +175,7 @@ static inline pte_t pfn_pte(unsigned long pfn, pgprot_t prot)
 	((pte_t *)page_address(pmd_page(*(dir))) + __pte_offset(address))
 #define pte_unmap(pte) ((void)(pte))
 
-#if defined(CONFIG_CPU_R3000) || defined(CONFIG_CPU_TX39XX)
+#if defined(CONFIG_CPU_R3000) || defined(CONFIG_CPU_TX39XX) || defined(CONFIG_CPU_RLX4181)
 
 /* Swap entries must have VALID bit cleared. */
 #define __swp_type(x)			(((x).val >> 10) & 0x1f)

@@ -2533,7 +2533,7 @@ config CPU_R4400_WORKAROUNDS
 
 config MIPS_ASID_SHIFT
 	int
-	default 6 if CPU_R3000 || CPU_TX39XX
+	default 6 if CPU_R3000 || CPU_TX39XX || CPU_RLX4181
 	default 4 if CPU_R8000
 	default 0
 
