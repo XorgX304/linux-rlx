@@ -38,6 +38,7 @@ vmlinuzobjs-$(CONFIG_SYS_SUPPORTS_ZBOOT_UART16550) += $(obj)/uart-16550.o
 vmlinuzobjs-$(CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM) += $(obj)/uart-prom.o
 vmlinuzobjs-$(CONFIG_MIPS_ALCHEMY)		   += $(obj)/uart-alchemy.o
 vmlinuzobjs-$(CONFIG_ATH79)			   += $(obj)/uart-ath79.o
+vmlinuzobjs-$(CONFIG_MACH_RTL819X)	   += $(obj)/uart-rlx.o
 endif
 
 extra-y += uart-ath79.c
@@ -80,7 +81,13 @@ hostprogs-y := calc_vmlinuz_load_addr
 
 ifneq ($(zload-y),)
 VMLINUZ_LOAD_ADDRESS := $(zload-y)
-else
+endif
+
+ifeq ($(CONFIG_MACH_RTL819X),y)
+VMLINUZ_LOAD_ADDRESS := 0x80500000
+endif
+
+ifeq ($(VMLINUZ_LOAD_ADDRESS),)
 VMLINUZ_LOAD_ADDRESS = $(shell $(obj)/calc_vmlinuz_load_addr \
 		$(obj)/vmlinux.bin $(VMLINUX_LOAD_ADDRESS))
 endif

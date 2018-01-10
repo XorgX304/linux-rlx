@@ -364,6 +364,7 @@ config MACH_RTL819X
 	select CPU_RLX4181
 	select IRQ_CPU
 	select BOOT_RAW
+	select SYS_SUPPORTS_ZBOOT
 	select SYS_HAS_EARLY_PRINTK
 	select CPU_BIG_ENDIAN
 	select RTL_819X
