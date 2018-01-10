@@ -2440,8 +2440,11 @@ void register_console(struct console *newcon)
 	if (console_drivers && console_drivers->flags & CON_BOOT)
 		bcon = console_drivers;
 
-	if (!has_preferred || bcon || !console_drivers)
+	if (!has_preferred || bcon || !console_drivers) {
+		void clear_tx_queue(void);
 		has_preferred = preferred_console >= 0;
+		clear_tx_queue();
+	}
 
 	/*
 	 *	See if we want to use this console driver. If we
