@@ -2,6 +2,5 @@ export PATH=$PATH:~/openwrt/buildroot/output/host/bin/
 export STAGING_DIR=~/openwrt/buildroot/output/host/mips-buildroot-linux-uclibc/
 
 CROSS_COMPILE=mips-linux- ARCH=mips make $* &&
-mips-openwrt-linux-objcopy -Obinary ./vmlinux ./vmlinux.bin &&
-mips-openwrt-linux-objcopy -Obinary ./vmlinuz ./vmlinuz.bin
+mips-linux-objcopy -Obinary ./vmlinux ./vmlinux.bin
 #./fl.sh ./vmlinuz.bin 

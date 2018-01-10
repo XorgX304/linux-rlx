@@ -251,6 +251,8 @@
 #define read_c0_framemask()	__read_32bit_c0_register($21, 0)
 #define write_c0_framemask(val)	__write_32bit_c0_register($21, 0, val)
 
+#if 0
+
 #define mfhi0()								\
 ({									\
 	unsigned long __treg;						\
@@ -475,7 +477,7 @@ do {									\
 	: "r" (x));							\
 } while (0)
 
-
+#endif
 
 #endif /* !__ASSEMBLY__ */
 

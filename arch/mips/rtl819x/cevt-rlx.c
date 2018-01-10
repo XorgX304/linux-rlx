@@ -125,10 +125,9 @@ static int rlx_timer_set_next_event(unsigned long delta,
   return -EINVAL;
 }
 
-static void rlx_timer_set_mode(enum clock_event_mode mode,
-			    struct clock_event_device *evt)
+static int rlx_timer_set_mode(struct clock_event_device *evt)
 {
-  return;
+  return 0;
 }
 
 static void rlx_timer_event_handler(struct clock_event_device *dev)
@@ -139,8 +138,8 @@ static struct clock_event_device rlx_clockevent = {
 	.name		= "rlx timer",
 	.features	= CLOCK_EVT_FEAT_PERIODIC,
 	.set_next_event	= rlx_timer_set_next_event,
-	.set_mode	= rlx_timer_set_mode,
 	.event_handler	= rlx_timer_event_handler,
+	.set_state_periodic    = rlx_timer_set_mode,
 };
 
 static irqreturn_t rlx_timer_interrupt(int irq, void *dev_id)
@@ -222,7 +221,7 @@ static irqreturn_t rlx_timer_interrupt(int irq, void *dev_id)
 
 static struct irqaction rlx_irqaction = {
 	.handler	= rlx_timer_interrupt,
-	.flags		= IRQF_DISABLED | IRQF_PERCPU | IRQF_TIMER,
+	.flags		= IRQF_PERCPU | IRQF_TIMER,
 	.name		= "rlx timer",
 };
 
