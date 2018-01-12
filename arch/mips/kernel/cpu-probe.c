@@ -31,6 +31,7 @@
 #include <asm/pgtable-bits.h>
 #include <asm/spram.h>
 #include <linux/uaccess.h>
+#include <asm/mach-rtl819x/bspcpu.h>
 
 /* Hardware capabilities */
 unsigned int elf_hwcap __read_mostly;
@@ -1528,9 +1529,13 @@ static inline void cpu_probe_legacy(struct cpuinfo_mips *c, unsigned int cpu)
 		set_isa(c, MIPS_CPU_ISA_LEXRA);
 		set_cpu_asid_mask(c, 0xfc0);
 		c->options      = MIPS_CPU_TLB | MIPS_CPU_3K_CACHE | MIPS_CPU_NOFPUEX;
-		c->tlbsize      = 32;
-		c->icache.ways = 2;
-		c->dcache.ways = 2;
+		c->tlbsize       = RTL819X_CPU_TLB_ENTRY;
+		c->icache.ways   = 2;
+		c->icache.sets   = RTL819X_CPU_ICACHE_LINE;
+		c->icache.linesz = RTL819X_CPU_ICACHE_LINE_SIZE;
+		c->dcache.ways   = 1;
+		c->icache.sets   = RTL819X_CPU_DCACHE_LINE;
+		c->dcache.linesz = RTL819X_CPU_DCACHE_LINE_SIZE;
 		break;
 	}
 }

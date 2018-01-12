@@ -142,7 +142,7 @@ void __init prom_meminit(void)
                 mem_size = (row_cnt * col_cnt *bank_cnt) * (bus_width >> 3) * chip_sel;     
  
         }
-	mem_size = cpu_mem_size;
+	//mem_size = cpu_mem_size;
 	add_memory_region(0, mem_size, BOOT_MEM_RAM);
 }
 

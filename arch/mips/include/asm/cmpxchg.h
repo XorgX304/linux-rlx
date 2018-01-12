@@ -109,31 +109,6 @@ static inline unsigned long __xchg(volatile void *ptr, unsigned long x,
 	__res;								\
 })
 
-#if defined(CONFIG_CPU_RLX4181)
-#define __cmpxchg_asm(ld, st, m, old, new)                              \
-({                                                                      \
-    __typeof(*(m)) __ret;                                           \
-                                                                    \
-        __asm__ __volatile__(                                   \
-        "       .set    push                            \n"     \
-        "       .set    noat                            \n"     \
-        "       .set    mips3                           \n"     \
-        "1:     lw  %0, %2          	# __cmpxchg_asm \n"     \
-		"		nop										\n"		\
-        "       bne     %0, %z3, 2f                     \n"     \
-        "       .set    mips0                           \n"     \
-        "       move    $1, %z4                         \n"     \
-        "       .set    mips3                           \n"     \
-        "       sw  $1, %1                          	\n"     \
-        "       beqz    $1, 1b                          \n"     \
-        "       .set    pop                             \n"     \
-        "2:                                             \n"     \
-        : "=&r" (__ret), "=" GCC_OFF_SMALL_ASM() (*m)   		\
-        : GCC_OFF_SMALL_ASM() (*m), "Jr" (old), "Jr" (new)      \
-        : "memory");                                            \
-    __ret;                                                          \
-})
-#else
 #define __cmpxchg_asm(ld, st, m, old, new)				\
 ({									\
 	__typeof(*(m)) __ret;						\
@@ -167,7 +142,6 @@ static inline unsigned long __xchg(volatile void *ptr, unsigned long x,
 									\
 	__ret;								\
 })
-#endif
 
 extern unsigned long __cmpxchg_small(volatile void *ptr, unsigned long old,
 				     unsigned long new, unsigned int size);
