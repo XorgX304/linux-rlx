@@ -194,8 +194,3 @@ void __init prom_init(void)
    prom_console_init();
    prom_meminit();
 }
-
-void clear_tx_queue(void)
-{
-	REG8(UART0_FCR) = TXRST | CHAR_TRIGGER_14;
-}
